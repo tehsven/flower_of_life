@@ -1,0 +1,112 @@
+<html>
+  <head></head>
+  <body></body>
+  <script>
+    const width = 1920
+    const height = 1920
+
+    const rows = 100
+    const diameter = 40
+
+    const canvas = document.createElement('canvas')
+    const context = canvas.getContext('2d')
+    canvas.width = width
+    canvas.height = height
+    document.body.appendChild(canvas)
+
+    const drawLine = (x, y, num) => {
+      for (let n = -num; n < num; n++) {
+        context.beginPath()
+        context.arc(x + diameter*n, y, diameter, 0, 2*Math.PI)
+        context.stroke()
+      }
+    }
+    for (let n = 0; n < rows; n++) {
+      const start_x = (n % 2)*diameter*Math.cos(4/3*Math.PI)
+      const start_y = -n*diameter*Math.sin(5/3*Math.PI)
+      drawLine(start_x, start_y, rows)
+    }
+
+
+    // recursive
+
+    // const seed = [
+    //   { x: 1/3, y: 1/3 },
+    //   { x: 2/3, y: 1/3 },
+    //   { x: 1,   y: 1   },
+    //   { x: 4/3, y: 4/3 },
+    //   { x: 5/3, y: 4/3 },
+    //   { x: 2,   y: 2   }
+    // ]
+
+    // const drawAt = (x, y, depth) => {
+    //   if (depth > 4) { return }
+
+    //   context.beginPath()
+    //   context.arc(
+    //     x, 
+    //     y,
+    //     diameter, 0, 2*Math.PI)
+    //   context.stroke()
+
+    //   seed.forEach((point) => {
+    //     newX = x+diameter*Math.cos(point.x * Math.PI)
+    //     newY = y-diameter*Math.sin(point.y * Math.PI)
+    //     context.beginPath()
+    //     context.arc(
+    //       newX,
+    //       newY,
+    //       diameter, 0, 2*Math.PI)
+    //     context.stroke()
+    //     drawAt(newX, newY, depth+1)
+    //   })
+    // }
+
+    // drawAt(center_x, center_y, 1)
+
+
+    // seed of life, manual
+
+    // context.beginPath()
+    // context.arc(
+    //   center_x+diameter*Math.cos(1/3 * Math.PI),
+    //   center_y-diameter*Math.sin(1/3 * Math.PI),
+    //   diameter, 0, 2*Math.PI)
+    // context.stroke()
+
+    // context.beginPath()
+    // context.arc(
+    //   center_x+diameter*Math.cos(2/3 * Math.PI),
+    //   center_y-diameter*Math.sin(1/3 * Math.PI),
+    //   diameter, 0, 2*Math.PI)
+    // context.stroke()
+
+    // context.beginPath()
+    // context.arc(
+    //   center_x+diameter*Math.cos(3/3 * Math.PI),
+    //   center_y-diameter*Math.sin(3/3 * Math.PI),
+    //   diameter, 0, 2*Math.PI)
+    // context.stroke()
+
+    // context.beginPath()
+    // context.arc(
+    //   center_x+diameter*Math.cos(4/3 * Math.PI),
+    //   center_y-diameter*Math.sin(4/3 * Math.PI),
+    //   diameter, 0, 2*Math.PI)
+    // context.stroke()
+
+    // context.beginPath()
+    // context.arc(
+    //   center_x+diameter*Math.cos(5/3 * Math.PI),
+    //   center_y-diameter*Math.sin(4/3 * Math.PI),
+    //   diameter, 0, 2*Math.PI)
+    // context.stroke()
+
+    // context.beginPath()
+    // context.arc(
+    //   center_x+diameter*Math.cos(6/3 * Math.PI),
+    //   center_y-diameter*Math.sin(6/3 * Math.PI),
+    //   diameter, 0, 2*Math.PI)
+    // context.stroke()
+  </script>
+</html>
