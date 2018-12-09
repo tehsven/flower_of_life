@@ -14,18 +14,32 @@
     canvas.height = height
     document.body.appendChild(canvas)
 
-    const drawLine = (x, y, num) => {
+    const drawRow = (x, y, num, currentDiameter) => {
       for (let n = -num; n < num; n++) {
         context.beginPath()
-        context.arc(x + diameter*n, y, diameter, 0, 2*Math.PI)
+        context.arc(x + diameter*n, y, currentDiameter, 0, 2*Math.PI)
         context.stroke()
       }
     }
-    for (let n = 0; n < rows; n++) {
-      const start_x = (n % 2)*diameter*Math.cos(4/3*Math.PI)
-      const start_y = -n*diameter*Math.sin(5/3*Math.PI)
-      drawLine(start_x, start_y, rows)
+
+    const drawColumns = (offset) => {
+      for (let n = 0; n < rows; n++) {
+        const currentDiameter = diameter + offset
+        const start_x = (n % 2)*diameter*Math.cos(4/3*Math.PI)
+        const start_y = -n*diameter*Math.sin(5/3*Math.PI)
+        drawRow(start_x, start_y, rows, currentDiameter)
+      }
     }
+
+    const diameterChangePerSecond = diameter * Math.PI
+    const rate = 200 * diameterChangePerSecond
+
+    setInterval(() => {
+      const currentTime = new Date().getTime()
+      const distanceFromSecond = Math.abs(currentTime % rate / rate - 0.5)
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      drawColumns(diameterChangePerSecond * distanceFromSecond)
+    }, 1/60)
 
 
     // recursive
